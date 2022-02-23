@@ -11,9 +11,10 @@ html, body {
   border: 2px black solid;
   /* width: 500px; */
   height: 700px;
+  /* display: block; */
   /* height: 600px; */
   display: flex;
-  justify-content: space-evenly;
+  /* justify-content: space-evenly; */
   align-items: flex-end;
 }
 
@@ -21,10 +22,12 @@ html, body {
   /* background-color: blue; */
   /* border: 2px green solid; */
   text-align: center;
+  /* margin: 0 10px; */
 }
 
 .bar-label {
   position: relative;
   /* top: 5px; */
+  /* color */
   /* top: 50%; */
 }
