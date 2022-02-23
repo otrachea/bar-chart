@@ -3,7 +3,15 @@
   "version": "0.0.0",
   "description": "",
   "devDependencies": {
-    "eslint": "^3.19.0",
-    "eslint-config-lighthouselabs": "lighthouse-labs/eslint-config-lighthouselabs"
+    "eslint": "^7.32.0",
+    "eslint-config-lighthouselabs": "lighthouse-labs/eslint-config-lighthouselabs",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.2.0"
+  },
+  "dependencies": {
+    "jquery": "^3.6.0",
+    "latest-version": "^6.0.0"
   }
 }
