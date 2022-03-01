@@ -17,29 +17,19 @@ html, body {
 .graph-container {
   /* border: 2px black solid; */
   background-color: #888098;
-  /* width: 500px; */
   height: 700px;
-  /* display: block; */
-  /* height: 600px; */
   display: flex;
-  /* justify-content: space-evenly; */
   align-items: flex-end;
   grid-column: 3 / span 1;
   grid-row: 2 / span 1;
 }
 
 .bar {
-  /* background-color: blue; */
-  /* border: 2px green solid; */
   text-align: center;
-  /* margin: 0 10px; */
 }
 
 .bar-label {
   position: relative;
-  /* top: 5px; */
-  /* color */
-  /* top: 50%; */
 }
 
 .y-axis-label {
@@ -67,7 +57,6 @@ html, body {
   grid-column: 3 / span 1;
   grid-row: 1 / span 1;
   display: flex;
-  /* text-align: center; */
   justify-content: center;
   align-items: center;
 }
