@@ -8,7 +8,15 @@ html, body {
 }
 
 .container {
-  border: 2px black solid;
+  /* border: 2px orange solid; */
+  display: grid;
+  grid-template-columns: 4em max-content min-content;
+  grid-template-rows: 4em auto 4em;
+}
+
+.graph-container {
+  /* border: 2px black solid; */
+  background-color: #888098;
   /* width: 500px; */
   height: 700px;
   /* display: block; */
@@ -16,6 +24,8 @@ html, body {
   display: flex;
   /* justify-content: space-evenly; */
   align-items: flex-end;
+  grid-column: 3 / span 1;
+  grid-row: 2 / span 1;
 }
 
 .bar {
@@ -30,4 +40,46 @@ html, body {
   /* top: 5px; */
   /* color */
   /* top: 50%; */
+}
+
+.y-axis-label {
+  /* border: 2px blue solid; */
+  grid-column: 1 / span 1;
+  grid-row: 2 / span 1;
+  overflow: hidden;
+  text-align: center;
+  display: flex;
+}
+
+.y-axis-label > p {
+  writing-mode: sideways-lr;
+}
+
+.x-axis-label {
+  /* border: 2px green solid; */
+  grid-column: 3 /span 1;
+  grid-row: 3 / span 1;
+  text-align: center;
+}
+
+.title {
+  /* border: 2px purple solid; */
+  grid-column: 3 / span 1;
+  grid-row: 1 / span 1;
+  display: flex;
+  /* text-align: center; */
+  justify-content: center;
+  align-items: center;
+}
+
+.markers-container {
+  /* border: 2px red solid; */
+  grid-column: 2 / span 1;
+  grid-row: 2 / span 1;
+  height: calc(600px + 1em);
+  position: relative;
+  bottom: calc(-100px + 0.5em);
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
 }
