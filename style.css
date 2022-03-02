@@ -85,3 +85,7 @@ html, body {
   text-align: center;
   margin-top: 0.5em;
 }
+
+.bar-container {
+  /* background-color: teal; */
+}
