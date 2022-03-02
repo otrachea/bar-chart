@@ -3,29 +3,29 @@ function getyMax(data, options) {
 
   if ('yMax' in options && options.yMax !== null) return options.yMax;
 
+  // finds largest value in stacked chart
   if (typeof data[0] === 'object') data = data.map(n => n.reduce((a, b) => a + b, 0));
   return Math.max(...data);
 
 }
 
 function drawXLabels(dataPoints, element, options) {
+  // no x labels given
   if (dataPoints[0].value === dataPoints[0].label) return;
 
+  // creates container for x labels
   $(`#${element}`).append(`<div class='x-labels-container'></div>`);
 
+  // adds each x label into x label container and sets its width
   dataPoints.forEach((point, index) => {
     $(`#${element} .x-labels-container`).append(`<div class='x-label'>${point.label}</div>`);
     $(`#${element} .x-label:last-child`).css('width', `${400 / dataPoints.length}px`);
-
-    // CHECKS IF OVERFLOWING
-    // console.log(point.label, $(`#${element} .x-label:last-child`).prop('scrollWidth'), $(`#${element} .x-label:last-child`).prop('clientWidth'));
-    // if ($(`#${element} .x-label`).prop('scrollWidth') > $(`#${element} .x-label`).width()) {
-    // console.log(point.label);
-    // }
   });
 
+  // overflow solution for long labels
   $(`#${element} .x-label`).css('overflow', `auto`);
 
+  // sets spacing of x labels to same spacing as bars
   ('barSpacing' in options && options.barSpacing !== null) ?
     $(`#${element} .x-label`).css('margin-left', `${options.barSpacing}px`) :
     $(`#${element} .x-label`).css('margin-left', `10px`);
@@ -33,7 +33,7 @@ function drawXLabels(dataPoints, element, options) {
 }
 
 function setBarColor(options, element, isStacked) {
-  if (!isStacked) {
+  if (!isStacked) { // not stacked
     ('barColor' in options && options.barColor !== null) ?
       $(`#${element} .bar`).css('background-color', `#${options.barColor}`) :
       $(`#${element} .bar`).css('background-color', `#C297B8`);
@@ -47,11 +47,10 @@ function setBarColor(options, element, isStacked) {
         $(`#${element} .bar${index}`).css('background-color', `#${barColor}`);
     });
   }
-
 }
 
 function setBarLabelPosition(options, element, isStacked) {
-  if (!isStacked) {
+  if (!isStacked) { // not stacked
     if ('barLabelPosition' in options && options.barLabelPosition !== null) {
       if (options.barLabelPosition === 'center') {
         $(`#${element} .bar-label`).css('top', `calc(50% - 0.5em)`);
@@ -95,8 +94,6 @@ function setBarLabelColor(options, element, isStacked) {
         $(`#${element} .bar${index} .bar-label`).css('color', `#${barLabelColor}`);
     })
   }
-
-
 }
 
 function setBarSpacing(options, element, isStacked) {
@@ -161,6 +158,15 @@ function drawMarkers(options, max, element) {
   }
 }
 
+function setBG(options, element) {
+  if ('graphBG' in options && options.graphBG !== null) {
+    $(`#${element} .graph-container`).css('background-color', `#${options.graphBG}`);
+  } else {
+    $(`#${element} .graph-container`).css('background-color', `#FFFFFF`);
+    $(`#${element} .graph-container`).css('border', `2px solid black`);
+  }
+}
+
 function drawBarChart(data, options, element) {
 
   let dataPoints = [];
@@ -174,6 +180,7 @@ function drawBarChart(data, options, element) {
 
   // DRAWS ACTUAL BARS
   data.forEach((dataPoint, index) => {
+
     // ASSOCIATES X LABEL WITH DATAPOINT
     if ('xLabels' in options && options.xLabels !== null) {
       (typeof dataPoint === 'object') ?
@@ -195,7 +202,6 @@ function drawBarChart(data, options, element) {
         $(`#${element} .bar-container:last-child`).append(`<div class='bar bar${index2}'></div>`);
         $(`#${element} .bar-container:last-child .bar:last-child`).append(`<span class="bar-label">${point}</span>`)
           .css('height', `${600 * point / max}px`)
-
       });
 
     } else { // SINGLE VALUE
@@ -232,22 +238,25 @@ function drawBarChart(data, options, element) {
 
   // SETS Y AXIS MARKERS
   drawMarkers(options, max, element);
+
+  // SETS BACKGROUND COLOUR
+  setBG(options, element);
 }
 
-$(drawBarChart([16, 2, 1.85, 4, 7, 1, 16], {
-  'yMax': null,
-  'xLabels': ['a', 'b', 'c', 'd', 'e', 'fgfdsgfyrytr', 'gfdsafdsafd'],
+$(drawBarChart([15, 2, 1.85, 4, 7, 1, 16], {
+  'yMax': 20,
+  'xLabels': ['a', 'b', 'c', 'd', 'e', 'f', 'g'],
   'barColor': 'DE89BE',
   'barLabelPosition': 'center',
   'barSpacing': 20,
   'barLabelColor': '40434E',
-  'xAxisName': 'X axis',
-  'yAxisName': 'Y axis humina humina aaaeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',
-  'title': 'Fuck this graph',
-  'titleFontSize': '30px',
+  'xAxisName': 'Letters',
+  'yAxisName': 'Values',
+  'title': 'Example 1',
+  'titleFontSize': '50px',
   'titleFontColor': null, //344055
-}, $('#container2')));
-
+  'graphBG': '888098'
+}, $('#container1')));
 
 $(drawBarChart([[1, 5, 0.5], [2, 4, 2], [5, 1, 2], [4, 4, 2], [7, 8, 2]], {
   'yMax': null,
@@ -261,18 +270,20 @@ $(drawBarChart([[1, 5, 0.5], [2, 4, 2], [5, 1, 2], [4, 4, 2], [7, 8, 2]], {
   'title': 'Fuck this graph2',
   'titleFontSize': '30px',
   'titleFontColor': null, //344055
-}, $('#container1')));
+  'graphBG': 'CFB3CD',
+}, $('#container2')));
 
-$(drawBarChart([1, 2, 0.5, 4, 7], {
-  'yMax': null,
+$(drawBarChart([1.75, 2, 0.5, 4, 7], {
+  'yMax': 10,
   'xLabels': ['a', 'b', 'c', 'd', 'e'],
   'barColor': '266DD3',
   'barLabelPosition': 'center',
   'barSpacing': 10,
-  'barLabelColor': '40434E',
+  'barLabelColor': null, //40434E
   'xAxisName': 'X axis',
   'yAxisName': 'Y axis humina humina',
   'title': 'Fuck this graph2',
   'titleFontSize': '30px',
   'titleFontColor': null, //344055
+  'graphBG': null,
 }, $('#container3')));
