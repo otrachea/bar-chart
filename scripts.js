@@ -42,37 +42,64 @@ function setBarColor(options, element, isStacked) {
 
   if ('barColor' in options) {
     options.barColor.forEach((barColor, index) => {
-      (options.barColor[index] === null) ?
+      (barColor === null) ?
         $(`#${element} .bar${index}`).css('background-color', `#C297B8`) :
-        $(`#${element} .bar${index}`).css('background-color', `#${options.barColor[index]}`);
+        $(`#${element} .bar${index}`).css('background-color', `#${barColor}`);
     });
   }
 
 }
 
 function setBarLabelPosition(options, element, isStacked) {
-  if ('barLabelPosition' in options && options.barLabelPosition !== null) {
-    if (options.barLabelPosition === 'center') {
-      $(`#${element} .bar-label`).css('top', `calc(50% - 0.5em)`);
-    } else if (options.barLabelPosition === 'bottom') {
-      $(`#${element} .bar-label`).css('top', `calc(100% - 1.5em)`);
-    } else { // options.barLabelPosition === 'top'
+  if (!isStacked) {
+    if ('barLabelPosition' in options && options.barLabelPosition !== null) {
+      if (options.barLabelPosition === 'center') {
+        $(`#${element} .bar-label`).css('top', `calc(50% - 0.5em)`);
+      } else if (options.barLabelPosition === 'bottom') {
+        $(`#${element} .bar-label`).css('top', `calc(100% - 1.5em)`);
+      } else { // options.barLabelPosition === 'top'
+        $(`#${element} .bar-label`).css('top', '0.5em');
+      }
+    } else {
       $(`#${element} .bar-label`).css('top', '0.5em');
     }
-  } else {
 
-    $(`#${element} .bar-label`).css('top', '0.5em');
+    return;
+  }
+
+  if ('barLabelPosition' in options) {
+    options.barLabelPosition.forEach((barLabelPosition, index) => {
+      if (barLabelPosition === 'center') {
+        $(`#${element} .bar${index} .bar-label`).css('top', `calc(50% - 0.5em)`);
+      } else if (barLabelPosition === 'bottom') {
+        $(`#${element} .bar${index} .bar-label`).css('top', `calc(100% - 1.5em)`);
+      } else { // options.barLabelPosition === 'top'
+        $(`#${element} .bar${index} .bar-label`).css('top', '0.5em');
+      }
+    });
   }
 }
 
 function setBarLabelColor(options, element, isStacked) {
-  ('barLabelColor' in options && options.barLabelColor !== null) ?
-    $(`#${element} .bar-label`).css('color', `#${options.barLabelColor}`) :
-    $(`#${element} .bar-label`).css('color', `#000000`);
+  if (!isStacked) {
+    ('barLabelColor' in options && options.barLabelColor !== null) ?
+      $(`#${element} .bar-label`).css('color', `#${options.barLabelColor}`) :
+      $(`#${element} .bar-label`).css('color', `#000000`);
+    return;
+  }
+
+  if ('barLabelColor' in options) {
+    options.barLabelColor.forEach((barLabelColor, index) => {
+      (barLabelColor === null) ?
+        $(`#${element} .bar${index} .bar-label`).css('color', `#000000`) :
+        $(`#${element} .bar${index} .bar-label`).css('color', `#${barLabelColor}`);
+    })
+  }
+
+
 }
 
 function setBarSpacing(options, element, isStacked) {
-  // console.log(element, isStacked);
   if (isStacked && 'barSpacing' in options && options.barSpacing !== null) {
     $(`#${element} .bar-container`).css('margin-left', `${options.barSpacing}px`);
     $(`#${element} .bar-container`).last().css('margin-right', `${options.barSpacing}px`);
@@ -83,7 +110,6 @@ function setBarSpacing(options, element, isStacked) {
     return;
   }
 
-  // console.log(element);
   if ('barSpacing' in options && options.barSpacing !== null) {
     $(`#${element} .bar`).css('margin-left', `${options.barSpacing}px`);
     $(`#${element} .bar`).last().css('margin-right', `${options.barSpacing}px`);
@@ -135,13 +161,10 @@ function drawMarkers(options, max, element) {
   }
 }
 
-function drawStackedBars(data, options, element, max) {
-
-}
-
 function drawBarChart(data, options, element) {
 
   let dataPoints = [];
+  let isStacked = typeof data[0] === 'object';
 
   // SETS Y AXIS MAX VALUE
   let max = getyMax(data, options);
@@ -171,8 +194,10 @@ function drawBarChart(data, options, element) {
       dataPoint.forEach((point, index2) => {
         $(`#${element} .bar-container:last-child`).append(`<div class='bar bar${index2}'></div>`);
         $(`#${element} .bar-container:last-child .bar:last-child`).append(`<span class="bar-label">${point}</span>`)
-        // .css('background-color', 'teal');
-        // .css('height', `${600 * point / max}px`)
+          // .css('background-color', 'teal');
+          // .css('height', `${600 * point / max}px`)
+          .css('height', `${50}px`)
+
       });
 
     } else {
@@ -194,20 +219,16 @@ function drawBarChart(data, options, element) {
   drawXLabels(dataPoints, element, options);
 
   // SETS COLOUR OF BAR
-  (dataPoints[0].value.length > 1) ?
-    setBarColor(options, element, true) :
-    setBarColor(options, element, false);
+  setBarColor(options, element, isStacked);
 
   // SETS BAR VALUE LABEL POSITION
-  setBarLabelPosition(options, element);
+  setBarLabelPosition(options, element, isStacked);
 
   // SETS BAR VALUE LABEL COLOUR
-  setBarLabelColor(options, element);
+  setBarLabelColor(options, element, isStacked);
 
   // SETS BAR SPACING
-  (dataPoints[0].value.length > 1) ?
-    setBarSpacing(options, element, true) :
-    setBarSpacing(options, element, false);
+  setBarSpacing(options, element, isStacked);
 
   // SET BAR CHART AXES NAMES
   setAxesNames(options, element);
@@ -237,9 +258,9 @@ drawBarChart([[1, 5, 0.1], [2, 0.4, 2], [0.5, 1, 2], [4, 4, 2], [7, 8, 2]], {
   'yMax': null,
   'xLabels': ['a', 'b', 'c', 'd', 'e'],
   'barColor': ['266DD3', null, '344055'],
-  'barLabelPosition': ['center', 'center', null],
+  'barLabelPosition': ['bottom', 'center', 'top'],
   'barSpacing': 10,
-  'barLabelColor': ['40434E', null, null],
+  'barLabelColor': ['40434E', '266DD3', null],
   'xAxisName': 'X axis',
   'yAxisName': 'Y axis humina humina',
   'title': 'Fuck this graph2',
