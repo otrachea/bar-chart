@@ -10,8 +10,8 @@ html, body {
 .container {
   /* border: 2px orange solid; */
   display: grid;
-  grid-template-columns: 4em max-content min-content;
-  grid-template-rows: 4em auto 4em;
+  grid-template-columns: 4em max-content max-content;
+  grid-template-rows: 4em auto max-content max-content;
 }
 
 .graph-container {
@@ -48,7 +48,7 @@ html, body {
 .x-axis-label {
   /* border: 2px green solid; */
   grid-column: 3 /span 1;
-  grid-row: 3 / span 1;
+  grid-row: 4 / span 1;
   text-align: center;
 }
 
@@ -71,4 +71,17 @@ html, body {
   display: flex;
   justify-content: space-between;
   flex-direction: column;
+}
+
+.x-labels-container {
+  /* border: 2px solid red; */
+  grid-column: 3 / span 1;
+  grid-row: 3 / span 1;
+  display: flex;
+}
+
+.x-label {
+  /* border: 2px blue solid; */
+  text-align: center;
+  margin-top: 0.5em;
 }

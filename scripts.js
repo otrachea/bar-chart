@@ -1,9 +1,35 @@
+
 function getyMax(data, options) {
   let max = ('yMax' in options && options.yMax !== null) ?
     options.yMax :
     Math.max(...data);
-  
+
   return max;
+}
+
+function drawXLabels(dataPoints, element, options) {
+  if (dataPoints[0].value === dataPoints[0].label) return;
+
+  $(`#${element}`).append(`<div class='x-labels-container'></div>`);
+
+  dataPoints.forEach((point, index)=> {
+    $(`#${element} .x-labels-container`).append(`<div class='x-label'>${point.label}</div>`);
+    $(`#${element} .x-label:last-child`).css('width', `${400 / dataPoints.length}px`);
+
+    // CHECKS IF OVERFLOWING
+    // console.log(point.label, $(`#${element} .x-label:last-child`).prop('scrollWidth'), $(`#${element} .x-label:last-child`).prop('clientWidth'));
+    // if ($(`#${element} .x-label`).prop('scrollWidth') > $(`#${element} .x-label`).width()) {
+      // console.log(point.label);
+    // }
+  });
+
+  $(`#${element} .x-label`).css('overflow', `auto`);
+
+  ('barSpacing' in options && options.barSpacing !== null) ?
+    $(`#${element} .x-label`).css('margin-left', `${options.barSpacing}px`) :
+    $(`#${element} .x-label`).css('margin-left', `10px`);
+
+
 }
 
 function setBarColor(options, element) {
@@ -22,7 +48,7 @@ function setBarLabelPosition(options, element) {
       $(`#${element} .bar-label`).css('top', '0.5em');
     }
   } else {
-    
+
     $(`#${element} .bar-label`).css('top', '0.5em');
   }
 }
@@ -78,10 +104,10 @@ function setTitle(options, element) {
 
 function drawMarkers(options, max, element) {
   $(`#${element}`).append(`<div class='markers-container'></div>`);
-  let temp;
   for (let i = 4; i >= 0; i--) {
     $(`#${element} .markers-container`).append(`<div class='marker'>${(max * (i / 4)).toFixed(2)}</div>`);
-    $(`#${element} .marker:nth-child(${5 - i})`).css('margin-right', '0.5em');
+    $(`#${element} .marker:last-child`).css('margin-right', '0.5em');
+
   }
 }
 
@@ -93,15 +119,16 @@ function drawBarChart(data, options, element) {
   let max = getyMax(data, options);
 
   element.append("<div class='graph-container'></div>");
-  
+
   element = element.attr('id');
 
   // DRAWS ACTUAL BARS
   data.forEach((dataPoint, index) => {
+    // ASSOCIATES X LABEL WITH DATAPOINT
     ('xLabels' in options && options.xLabels !== null) ?
       dataPoints.push({ 'label': options.xLabels[index], 'value': dataPoint }) :
       dataPoints.push({ 'label': dataPoint, 'value': dataPoint });
-    
+
     $(`#${element} > .graph-container`).append($(`<div><span class="bar-label">${dataPoints[index].value}</span></div>`)
       .addClass('bar')
       .css('height', `calc(600px * (${dataPoint} / ${max}))`));
@@ -109,6 +136,9 @@ function drawBarChart(data, options, element) {
 
   // SETS WIDTH OF BAR
   $(`#${element} .bar`).css('width', `calc(400px / ${data.length})`);
+
+  // DRAWS X LABELS
+  drawXLabels(dataPoints, element, options);
 
   // SETS COLOUR OF BAR
   setBarColor(options, element);
@@ -134,7 +164,7 @@ function drawBarChart(data, options, element) {
 
 drawBarChart([16, 2, 1.85, 4, 7, 1, 16], {
   'yMax': null,
-  'xLabels': ['a', 'b', 'c', 'd', 'e'],
+  'xLabels': ['a', 'b', 'c', 'd', 'e', 'fgfdsgfyrytr', 'gfdsafdsafd'],
   'barColor': 'DE89BE',
   'barLabelPosition': 'center',
   'barSpacing': 20,
@@ -154,7 +184,7 @@ drawBarChart([1, 2, 0.5, 4, 7], {
   'barSpacing': 10,
   'barLabelColor': '40434E',
   'xAxisName': 'X axis',
-  'yAxisName': 'Y axis humina humina aaaeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',
+  'yAxisName': 'Y axis humina humina',
   'title': 'Fuck this graph2',
   'titleFontSize': '30px',
   'titleFontColor': null, //344055
