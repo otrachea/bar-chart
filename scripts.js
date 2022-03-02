@@ -234,7 +234,7 @@ function drawBarChart(data, options, element) {
   drawMarkers(options, max, element);
 }
 
-drawBarChart([16, 2, 1.85, 4, 7, 1, 16], {
+$(drawBarChart([16, 2, 1.85, 4, 7, 1, 16], {
   'yMax': null,
   'xLabels': ['a', 'b', 'c', 'd', 'e', 'fgfdsgfyrytr', 'gfdsafdsafd'],
   'barColor': 'DE89BE',
@@ -246,9 +246,10 @@ drawBarChart([16, 2, 1.85, 4, 7, 1, 16], {
   'title': 'Fuck this graph',
   'titleFontSize': '30px',
   'titleFontColor': null, //344055
-}, $('#container2'));
+}, $('#container2')));
 
-drawBarChart([[1, 5, 0.5], [2, 4, 2], [5, 1, 2], [4, 4, 2], [7, 8, 2]], {
+
+$(drawBarChart([[1, 5, 0.5], [2, 4, 2], [5, 1, 2], [4, 4, 2], [7, 8, 2]], {
   'yMax': null,
   'xLabels': ['a', 'b', 'c', 'd', 'e'],
   'barColor': ['266DD3', null, '344055'],
@@ -260,9 +261,9 @@ drawBarChart([[1, 5, 0.5], [2, 4, 2], [5, 1, 2], [4, 4, 2], [7, 8, 2]], {
   'title': 'Fuck this graph2',
   'titleFontSize': '30px',
   'titleFontColor': null, //344055
-}, $('#container1'));
+}, $('#container1')));
 
-drawBarChart([1, 2, 0.5, 4, 7], {
+$(drawBarChart([1, 2, 0.5, 4, 7], {
   'yMax': null,
   'xLabels': ['a', 'b', 'c', 'd', 'e'],
   'barColor': '266DD3',
@@ -274,4 +275,4 @@ drawBarChart([1, 2, 0.5, 4, 7], {
   'title': 'Fuck this graph2',
   'titleFontSize': '30px',
   'titleFontColor': null, //344055
-}, $('#container3'));
+}, $('#container3')));
