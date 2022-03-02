@@ -185,7 +185,7 @@ function drawBarChart(data, options, element) {
         dataPoints.push({ 'label': dataPoint, 'value': [dataPoint] });
     }
 
-    // console.log(dataPoint);
+    // DRAWS BARS
     if (typeof dataPoint === 'object') { // STACKED 
       $(`#${element} .graph-container`).append($(`<div></div>`)
         .addClass('bar-container')
@@ -194,25 +194,19 @@ function drawBarChart(data, options, element) {
       dataPoint.forEach((point, index2) => {
         $(`#${element} .bar-container:last-child`).append(`<div class='bar bar${index2}'></div>`);
         $(`#${element} .bar-container:last-child .bar:last-child`).append(`<span class="bar-label">${point}</span>`)
-          // .css('background-color', 'teal');
-          // .css('height', `${600 * point / max}px`)
-          .css('height', `${50}px`)
+          .css('height', `${600 * point / max}px`)
 
       });
 
-    } else {
+    } else { // SINGLE VALUE
       $(`#${element} .graph-container`).append($(`<div><span class="bar-label">${dataPoints[index].value}</span></div>`)
         .addClass('bar')
         .css('height', `${600 * dataPoint / max}px`));
     }
-    // console.log(dataPoints[index].value)
-    // console.log(dataPoints[index].value.reduce((sum, next) => sum + next, 0))
-
   });
 
-  // console.log(dataPoints);
-  // SETS WIDTH OF BAR
-  $(`#${element} .bar`).css('width', `${400 / data.length}px`);
+  // SETS WIDTH OF BAR AND SETS OVERFLOW IN CASE BAR REALLY SMALL
+  $(`#${element} .bar`).css('width', `${400 / data.length}px`).css('overflow', 'auto');
   $(`#${element} .bar-container`).css('width', `${400 / data.length}px`)
 
   // DRAWS X LABELS
@@ -254,7 +248,7 @@ drawBarChart([16, 2, 1.85, 4, 7, 1, 16], {
   'titleFontColor': null, //344055
 }, $('#container2'));
 
-drawBarChart([[1, 5, 0.1], [2, 0.4, 2], [0.5, 1, 2], [4, 4, 2], [7, 8, 2]], {
+drawBarChart([[1, 5, 0.5], [2, 4, 2], [5, 1, 2], [4, 4, 2], [7, 8, 2]], {
   'yMax': null,
   'xLabels': ['a', 'b', 'c', 'd', 'e'],
   'barColor': ['266DD3', null, '344055'],
@@ -268,16 +262,16 @@ drawBarChart([[1, 5, 0.1], [2, 0.4, 2], [0.5, 1, 2], [4, 4, 2], [7, 8, 2]], {
   'titleFontColor': null, //344055
 }, $('#container1'));
 
-// drawBarChart([1, 2, 0.5, 4, 7], {
-//   'yMax': null,
-//   'xLabels': ['a', 'b', 'c', 'd', 'e'],
-//   'barColor': '266DD3',
-//   'barLabelPosition': 'center',
-//   'barSpacing': 10,
-//   'barLabelColor': '40434E',
-//   'xAxisName': 'X axis',
-//   'yAxisName': 'Y axis humina humina',
-//   'title': 'Fuck this graph2',
-//   'titleFontSize': '30px',
-//   'titleFontColor': null, //344055
-// }, $('#container2'));
+drawBarChart([1, 2, 0.5, 4, 7], {
+  'yMax': null,
+  'xLabels': ['a', 'b', 'c', 'd', 'e'],
+  'barColor': '266DD3',
+  'barLabelPosition': 'center',
+  'barSpacing': 10,
+  'barLabelColor': '40434E',
+  'xAxisName': 'X axis',
+  'yAxisName': 'Y axis humina humina',
+  'title': 'Fuck this graph2',
+  'titleFontSize': '30px',
+  'titleFontColor': null, //344055
+}, $('#container3'));
