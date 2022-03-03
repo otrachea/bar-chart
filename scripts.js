@@ -267,7 +267,7 @@ $(drawBarChart([[1, 5, 0.5], [2, 4, 2], [5, 1, 2], [4, 4, 2], [7, 8, 2]], {
   'barLabelColor': ['40434E', '266DD3', null],
   'xAxisName': 'X axis',
   'yAxisName': 'Y axis humina humina',
-  'title': 'Fuck this graph2',
+  'title': 'Example 2',
   'titleFontSize': '30px',
   'titleFontColor': null, //344055
   'graphBG': 'CFB3CD',
@@ -282,7 +282,7 @@ $(drawBarChart([1.75, 2, 0.5, 4, 7], {
   'barLabelColor': null, //40434E
   'xAxisName': 'X axis',
   'yAxisName': 'Y axis humina humina',
-  'title': 'Fuck this graph2',
+  'title': 'Example 3',
   'titleFontSize': '30px',
   'titleFontColor': null, //344055
   'graphBG': null,
