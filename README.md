@@ -9,11 +9,11 @@ If a key is missing in the `options` parameter, a default value/style is used fo
 
 > `yMax` is the max value on the Y axis. Values can be `null` or any `int`. Default value is the tallest bar.
 >
-> `xLabels`is an array of strings that are the labels for each bar. Default does not label bars
+> `xLabels` is an array of strings that are the labels for each bar. Default does not label bars
 > 
-> `barColor`
+> `barColor`can be a string or array of strings representing the hex code of the color for the bars. If stacked bars are not given individual colours then all stacked bars will be the same color.
 > 
-> `barLabelPosition`
+> `barLabelPosition`is string that is either `top`, `bottom` or `center` with `top` being the defalut position. If stacked bars then has to be array of strings of the given options.
 > 
 > `barSpacing`
 > 
