@@ -15,21 +15,21 @@ If a key is missing in the `options` parameter, a default value/style is used fo
 > 
 > `barLabelPosition`is string that is either `top`, `bottom` or `center` with `top` being the defalut position. If stacked bars then has to be array of strings of the given options.
 > 
-> `barSpacing`
+> `barSpacing` is an int value that represents in pixels the spacing between bars. Default value is 10px.
 > 
-> `barLabelColor`
+> `barLabelColor`is a string or array of strings representing the hex code of the color of the bar's label color. Default value is `#000000`.
 > 
-> `xAxisName`
+> `xAxisName`is a string representing the title of the X axis. No default value.
 > 
-> `yAxisName`
+> `yAxisName` is a string representin the title of the Y axis. No default value.
 > 
-> `title`
+> `title` is a string representing the title of the bar chart. If `null` title is 'Title' if the key is missing then no title.
 > 
-> `titleFontSize`
+> `titleFontSize`is a string representing the size of the font of the title. The string should includes the units. Default value is font size of `h1`.
 > 
-> `titleFontColor`
+> `titleFontColor` is a string representing the hex code of the color for the title. Default value is value for `h1`.
 > 
-> `graphBG`
+> `graphBG`is a string representing the hex code the color for the background of the bar chart. Default value is white with a 2px solid black border. If a value is given then there is no border for the background.
 
 ### Known issues / bugs
 ### To be implemented features
