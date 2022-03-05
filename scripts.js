@@ -145,6 +145,7 @@ function setTitle(options, element) {
   } else {
     $(`#${element}`).append(`<div class='title'></div>`);
   }
+  $(`#${element}`).css('padding-top', '10px');
   setTitleFontSize(options, element);
   setTitleFontColor(options, element);
 }
